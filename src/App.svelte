@@ -61,7 +61,7 @@
 
     map.addLayer(
       {
-        id: "fires",
+        id: "fires-fill",
         source: "fires",
         "source-layer": "all-years",
         type: "fill",
@@ -73,6 +73,26 @@
       },
       firstSymbolLayer.id
     );
+
+    map.addLayer({
+      id: "fires-lines",
+      source: "fires",
+      "source-layer": "all-years",
+      type: "line",
+      paint: {
+        "line-color": "#fff",
+        "line-opacity": 0.5,
+        "line-width": [
+          "interpolate",
+          ["linear", 0.5],
+          ["zoom"],
+          6,
+          0,
+          16,
+          0.75,
+        ],
+      },
+    });
   }
 </script>
 
