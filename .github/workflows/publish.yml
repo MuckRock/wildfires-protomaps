@@ -23,6 +23,8 @@ jobs:
         run: npm ci
 
       - name: build
+        env:
+          BASE_URL: wildfires-protomaps
         run: |
           npm run build
 
