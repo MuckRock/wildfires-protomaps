@@ -114,7 +114,9 @@
     const expression =
       visible === "all" ? null : ["==", ["get", "decade"], visible];
 
-    map.setFilter("fires-fill", expression);
+    map
+      .setFilter("fires-fill", expression)
+      .setFilter("fires-lines", expression);
   }
 </script>
 
