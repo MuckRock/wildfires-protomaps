@@ -1,0 +1,14 @@
+{
+  "headline": "Wildfires are becoming more frequent across the West",
+  "source": "National Interagency Fire Center",
+  "legend": {
+    "title": "Burned areas",
+    "description": "This map shows the perimeters of all wildfires in the United States between 1980 and 2021. Zoom in and click any individual fire for details. Click a decade in the legend to filter by decade.",
+    "items": [
+      ["#ffffb2", "1980 to 1990"],
+      ["#fecc5c", "1990 to 2000"],
+      ["#fd8d3c", "2000 to 2010"],
+      ["#e31a1c", "2010 to 2020"]
+    ]
+  }
+}

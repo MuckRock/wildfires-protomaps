@@ -4,6 +4,9 @@
   import * as pmtiles from "pmtiles";
   import layers from "protomaps-themes-base";
 
+  import Legend from "./Legend.svelte";
+  import text from "./text.json";
+
   const protocol = new pmtiles.Protocol();
 
   maplibregl.addProtocol("pmtiles", protocol.tile);
@@ -74,25 +77,28 @@
       firstSymbolLayer.id
     );
 
-    map.addLayer({
-      id: "fires-lines",
-      source: "fires",
-      "source-layer": "all-years",
-      type: "line",
-      paint: {
-        "line-color": "#fff",
-        "line-opacity": 0.5,
-        "line-width": [
-          "interpolate",
-          ["linear", 0.5],
-          ["zoom"],
-          6,
-          0,
-          16,
-          0.75,
-        ],
+    map.addLayer(
+      {
+        id: "fires-lines",
+        source: "fires",
+        "source-layer": "all-years",
+        type: "line",
+        paint: {
+          "line-color": "#fff",
+          "line-opacity": 0.5,
+          "line-width": [
+            "interpolate",
+            ["linear", 0.5],
+            ["zoom"],
+            6,
+            0,
+            16,
+            0.75,
+          ],
+        },
       },
-    });
+      firstSymbolLayer.id
+    );
   }
 </script>
 
@@ -100,11 +106,55 @@
   <noscript> This experience requires JavaScript to function. </noscript>
 </div>
 
+{#if map}
+  <Legend {map} dark>
+    <h2>{text.legend.title}</h2>
+    <p>
+      {text.legend.description}
+    </p>
+
+    <ol>
+      {#each text.legend.items as [color, label]}
+        <li>
+          <div class="box" style="background-color: {color}"></div>
+          <span>{label}</span>
+        </li>
+      {/each}
+    </ol>
+  </Legend>
+{/if}
+
 <style>
   .container {
     position: absolute;
     top: 0;
     bottom: 0;
     width: 100%;
+  }
+
+  :global(.legend) p,
+  :global(.legend) li {
+    font-size: 14px;
+  }
+
+  :global(.legend) ol {
+    padding: 0;
+  }
+
+  :global(.legend) ol li {
+    display: flex;
+    gap: 0.5em;
+    list-style: none;
+    margin-bottom: 0.75em;
+  }
+
+  :global(.legend) ol li .box {
+    display: inline-block;
+    height: 1.25em;
+    width: 2ch;
+  }
+
+  :global(.legend.dark) .box {
+    border: 0.5px solid white;
   }
 </style>
