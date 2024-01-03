@@ -102,6 +102,10 @@
   }
 </script>
 
+<header>
+  <h1>{text.headline}</h1>
+</header>
+
 <div bind:this={container} class="container">
   <noscript> This experience requires JavaScript to function. </noscript>
 </div>
@@ -125,11 +129,26 @@
 {/if}
 
 <style>
+  :global(#app) {
+    display: flex;
+    flex-flow: column nowrap;
+  }
+
+  header {
+    background-color: black;
+    flex: none;
+    padding: 0.5em 1em;
+    z-index: 10;
+  }
+
+  header h1 {
+    color: white;
+    font-size: 1.5em;
+    margin: 0;
+  }
+
   .container {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    width: 100%;
+    flex: 1 1 10em;
   }
 
   :global(.legend) p,
