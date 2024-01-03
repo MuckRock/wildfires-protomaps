@@ -13,6 +13,8 @@
 
   let container;
   let map;
+  let visible = "all";
+  let loaded = false;
 
   const decades = [1980, 1990, 2000, 2010, 2020];
   const colors = ["#ffffb2", "#fecc5c", "#fd8d3c", "#e31a1c", "#e31a1c"];
@@ -21,6 +23,8 @@
     m = [...m, ["==", ["get", "decade"], d], colors[i]];
     return m;
   }, []);
+
+  $: filter(map, visible, loaded);
 
   onMount(() => {
     map = new maplibregl.Map({
@@ -71,7 +75,7 @@
         layout: {},
         paint: {
           "fill-color": ["case", ...scale, "#ddd"],
-          "fill-opacity": 0.5,
+          "fill-opacity": 0.35,
         },
       },
       firstSymbolLayer.id
@@ -99,6 +103,18 @@
       },
       firstSymbolLayer.id
     );
+
+    loaded = true;
+  }
+
+  function filter(map, visible, loaded) {
+    if (!map || !loaded) return;
+
+    // setting "all" clears filters
+    const expression =
+      visible === "all" ? null : ["==", ["get", "decade"], visible];
+
+    map.setFilter("fires-fill", expression);
   }
 </script>
 
@@ -118,10 +134,19 @@
     </p>
 
     <ol>
-      {#each text.legend.items as [color, label]}
-        <li>
-          <div class="box" style="background-color: {color}"></div>
-          <span>{label}</span>
+      <li class:selected={visible === "all"}>
+        <label>
+          <input type="radio" value="all" bind:group={visible} />
+          <span>Show all</span>
+        </label>
+      </li>
+      {#each text.legend.items as { color, label, value }}
+        <li class:selected={visible.toString() === value.toString()}>
+          <label>
+            <input type="radio" {value} bind:group={visible} />
+            <div class="box" style:background-color={color}></div>
+            <span>{label}</span>
+          </label>
         </li>
       {/each}
     </ol>
@@ -161,10 +186,29 @@
   }
 
   :global(.legend) ol li {
+    list-style: none;
+    margin-bottom: 0.25em;
+  }
+
+  :global(.legend) ol li label {
+    border: 1px solid transparent;
+    border-radius: 5px;
+    cursor: pointer;
     display: flex;
     gap: 0.5em;
-    list-style: none;
-    margin-bottom: 0.75em;
+    padding: 0.25em;
+  }
+
+  :global(.legend) ol li label:hover {
+    border: 1px solid rgba(255, 255, 255, 0.5);
+  }
+
+  :global(.legend) ol li.selected label {
+    border: 1px solid #ddd;
+  }
+
+  :global(.legend) ol li label input {
+    display: none;
   }
 
   :global(.legend) ol li .box {
