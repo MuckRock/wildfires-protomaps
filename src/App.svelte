@@ -24,6 +24,9 @@
     return m;
   }, []);
 
+  const TILE_URL =
+    "https://muckrock-tiles.s3.amazonaws.com/planet/20240103.pmtiles";
+
   $: filter(map, visible, loaded);
 
   onMount(() => {
@@ -36,7 +39,7 @@
         sources: {
           protomaps: {
             type: "vector",
-            url: "pmtiles://https://build.protomaps.com/20230918.pmtiles",
+            url: "pmtiles://" + TILE_URL,
             attribution:
               '<a href="https://protomaps.com">Protomaps</a> © <a href="https://openstreetmap.org">OpenStreetMap</a>',
           },
