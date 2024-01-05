@@ -3,12 +3,12 @@
   "source": "National Interagency Fire Center",
   "legend": {
     "title": "Burned areas",
-    "description": "This map shows the perimeters of all wildfires in the United States between 1980 and 2021. Zoom in and click any individual fire for details. Click a decade in the legend to filter by decade.",
+    "description": "This map shows the perimeters of all wildfires in the United States between 1980 and 2021. Click a decade in the legend to filter by decade.",
     "items": [
       { "color": "#ffffb2", "label": "1980 to 1990", "value": 1980 },
       { "color": "#fecc5c", "label": "1990 to 2000", "value": 1990 },
       { "color": "#fd8d3c", "label": "2000 to 2010", "value": 2000 },
-      { "color": "#e31a1c", "label": "2010 to 2020", "value": 2010 }
+      { "color": "#e31a1c", "label": "2010 to 2021", "value": 2010 }
     ]
   }
 }
