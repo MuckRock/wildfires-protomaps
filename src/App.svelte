@@ -51,6 +51,10 @@
       hash: true,
     });
 
+    // controls
+    map.addControl(new maplibregl.NavigationControl(), "top-left");
+    map.addControl(new maplibregl.FullscreenControl(), "top-left");
+
     map.once("load", onLoad);
 
     // for debugging
